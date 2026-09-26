@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BloodConnect - Online Blood Donation Management System</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f7f7f7;
+    color:#222;
+}
+
+header{
+    background:#b30000;
+    color:white;
+    padding:15px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+nav button{
+    background:white;
+    color:#b30000;
+    border:none;
+    padding:9px 14px;
+    margin:4px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+nav button:hover{
+    background:#ffe5e5;
+}
+
+.page{
+    display:none;
+    padding:35px 7%;
+}
+
+.page.active{
+    display:block;
+}
+
+.hero{
+    min-height:430px;
+    background:linear-gradient(135deg,#fff,#ffe8e8);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+    padding:45px 7%;
+}
+
+.hero-text{
+    max-width:600px;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:15px;
+}
+
+.hero h1 span{
+    color:#d40000;
+}
+
+.hero p{
+    font-size:18px;
+    line-height:1.6;
+    color:#555;
+}
+
+.hero-buttons{
+    margin-top:25px;
+}
+
+.btn{
+    border:none;
+    padding:13px 20px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:5px;
+}
+
+.red{
+    background:#d40000;
+    color:white;
+}
+
+.white{
+    background:white;
+    color:#d40000;
+    border:2px solid #d40000;
+}
+
+.hero-icon{
+    font-size:180px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    padding:35px 7%;
+}
+
+.feature{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 3px 15px #ddd;
+}
+
+.feature .icon{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.feature h3{
+    margin-bottom:8px;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 3px 15px #ddd;
+}
+
+.container h2{
+    text-align:center;
+    color:#b30000;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input,select{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:7px;
+    font-size:15px;
+}
+
+.form-btn{
+    width:100%;
+    margin-top:22px;
+    padding:14px;
+    background:#d40000;
+    color:white;
+    border:none;
+    border-radius:7px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search-box{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 15px #ddd;
+}
+
+.search-box h2{
+    color:#b30000;
+    margin-bottom:20px;
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:12px;
+}
+
+.search-grid button{
+    background:#d40000;
+    color:white;
+    border:none;
+    border-radius:7px;
+    padding:12px 25px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.results{
+    max-width:900px;
+    margin:25px auto;
+}
+
+.donor-card{
+    background:white;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:10px;
+    box-shadow:0 2px 10px #ddd;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.donor-info h3{
+    color:#b30000;
+    margin-bottom:8px;
+}
+
+.donor-info p{
+    margin:5px 0;
+    color:#555;
+}
+
+.call-btn{
+    background:#159447;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.dashboard{
+    max-width:800px;
+    margin:auto;
+}
+
+.profile{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 3px 15px #ddd;
+}
+
+.profile h2{
+    color:#b30000;
+    margin-bottom:20px;
+}
+
+.profile-item{
+    padding:14px;
+    border-bottom:1px solid #eee;
+}
+
+.profile-item strong{
+    display:inline-block;
+    width:130px;
+}
+
+.logout{
+    background:#333;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:7px;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+#message{
+    text-align:center;
+    margin:15px;
+    font-weight:bold;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+}
+
+.modal-box{
+    background:#111;
+    color:white;
+    width:320px;
+    padding:35px;
+    border-radius:20px;
+    text-align:center;
+}
+
+.phone-icon{
+    font-size:65px;
+    margin:20px;
+}
+
+.ringing{
+    font-size:20px;
+    color:#ff4b4b;
+    margin:15px;
+}
+
+.end-call{
+    background:#e00000;
+    color:white;
+    border:none;
+    padding:13px 30px;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:30px;
+}
+
+@media(max-width:800px){
+    .hero{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+    .hero-icon{
+        font-size:100px;
+    }
+
+    .features{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+    .donor-card{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+
+@media(max-width:500px){
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        justify-content:center;
+        gap:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">🩸 BloodConnect</div>
+
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('search')">Find Blood</button>
+<button onclick="showPage('register')">Be a Donor</button>
+<button onclick="showPage('login')">Login</button>
+</nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active" style="padding:0">
+
+<div class="hero">
+
+<div class="hero-text">
+
+<h1>Donate <span>Blood</span><br>Save Lives ❤️</h1>
+
+<p>
+Find blood donors near you quickly.
+Register as a donor and help people
+who need blood during emergencies.
+</p>
+
+<div class="hero-buttons">
+
+<button class="btn red" onclick="showPage('search')">
+Find Blood
+</button>
+
+<button class="btn white" onclick="showPage('register')">
+Become a Donor
+</button>
+
+</div>
+
+</div>
+
+<div class="hero-icon">
+🩸
+</div>
+
+</div>
+
+
+<div class="features">
+
+<div class="feature">
+<div class="icon">❤️</div>
+<h3>Save Lives</h3>
+<p>Your donation can help people in need.</p>
+</div>
+
+<div class="feature">
+<div class="icon">🔎</div>
+<h3>Easy Search</h3>
+<p>Search donors using blood group and location.</p>
+</div>
+
+<div class="feature">
+<div class="icon">📍</div>
+<h3>Nearby Donors</h3>
+<p>Nearby matching donors are shown first.</p>
+</div>
+
+<div class="feature">
+<div class="icon">📞</div>
+<h3>Direct Call</h3>
+<p>Contact the donor directly.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="page">
+
+<div class="container">
+
+<h2>🩸 Become a Blood Donor</h2>
+
+<form id="registerForm">
+
+<label>Full Name</label>
+<input type="text" id="name" required placeholder="Enter your name">
+
+<label>Mobile Number</label>
+<input type="tel" id="mobile" required
+placeholder="Enter mobile number"
+pattern="[0-9]{10}">
+
+<label>Blood Group</label>
+
+<select id="blood" required>
+
+<option value="">Select Blood Group</option>
+<option>A+</option>
+<option>A-</option>
+<option>B+</option>
+<option>B-</option>
+<option>AB+</option>
+<option>AB-</option>
+<option>O+</option>
+<option>O-</option>
+
+</select>
+
+<label>Location</label>
+<input type="text" id="location" required
+placeholder="Example: Kukatpally">
+
+<button class="form-btn" type="submit">
+Register as Donor
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page">
+
+<div class="container">
+
+<h2>🔐 Donor Login</h2>
+
+<label>Mobile Number</label>
+<input type="tel" id="loginMobile"
+placeholder="Enter registered mobile number">
+
+<button class="form-btn" onclick="loginDonor()">
+Login
+</button>
+
+<p style="text-align:center;margin-top:15px">
+New donor?
+<span style="color:#d00000;cursor:pointer"
+onclick="showPage('register')">
+Register here
+</span>
+</p>
+
+</div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section id="search" class="page">
+
+<div class="search-box">
+
+<h2>🔎 Find Blood Donors Near You</h2>
+
+<div class="search-grid">
+
+<select id="searchBlood">
+
+<option value="">Select Blood Group</option>
+<option>A+</option>
+<option>A-</option>
+<option>B+</option>
+<option>B-</option>
+<option>AB+</option>
+<option>AB-</option>
+<option>O+</option>
+<option>O-</option>
+
+</select>
+
+<input type="text"
+id="searchLocation"
+placeholder="Enter location">
+
+<button onclick="searchDonors()">
+Search
+</button>
+
+</div>
+
+</div>
+
+<div id="results" class="results"></div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page">
+
+<div class="dashboard">
+
+<div class="profile">
+
+<h2>👤 Donor Dashboard</h2>
+
+<div class="profile-item">
+<strong>Name:</strong>
+<span id="dashName"></span>
+</div>
+
+<div class="profile-item">
+<strong>Mobile:</strong>
+<span id="dashMobile"></span>
+</div>
+
+<div class="profile-item">
+<strong>Blood Group:</strong>
+<span id="dashBlood"></span>
+</div>
+
+<div class="profile-item">
+<strong>Location:</strong>
+<span id="dashLocation"></span>
+</div>
+
+<button class="logout" onclick="logout()">
+Logout
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div id="message"></div>
+
+
+<!-- CALLING POPUP -->
+
+<div id="callModal" class="modal">
+
+<div class="modal-box">
+
+<div class="phone-icon">📞</div>
+
+<h2 id="callingName">Calling...</h2>
+
+<div class="ringing">
+🔔 Beep... Beep... Beep...
+</div>
+
+<p id="callingNumber"></p>
+
+<br>
+
+<button class="end-call" onclick="endCall()">
+End Call
+</button>
+
+</div>
+
+</div>
+
+
+<footer>
+
+<p>
+🩸 BloodConnect - Online Blood Donation Management System
+</p>
+
+<p style="margin-top:8px">
+Helping people find blood donors quickly.
+</p>
+
+</footer>
+
+
+<script>
+
+
+// Get donors from browser storage
+
+function getDonors(){
+
+    return JSON.parse(
+        localStorage.getItem("bloodDonors") || "[]"
+    );
+
+}
+
+
+// Save donors
+
+function saveDonors(donors){
+
+    localStorage.setItem(
+        "bloodDonors",
+        JSON.stringify(donors)
+    );
+
+}
+
+
+// Page navigation
+
+function showPage(pageId){
+
+    document.querySelectorAll(".page")
+    .forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId)
+    .classList.add("active");
+
+    window.scrollTo(0,0);
+
+}
+
+
+// Donor registration
+
+document.getElementById("registerForm")
+.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    let donors=getDonors();
+
+    let mobile=document.getElementById("mobile").value;
+
+    let alreadyExists=donors.find(
+        donor=>donor.mobile===mobile
+    );
+
+    if(alreadyExists){
+
+        showMessage(
+            "This mobile number is already registered.",
+            "red"
+        );
+
+        return;
+    }
+
+
+    let donor={
+
+        name:document.getElementById("name").value,
+
+        mobile:mobile,
+
+        blood:document.getElementById("blood").value,
+
+        location:document.getElementById("location").value
+
+    };
+
+
+    donors.push(donor);
+
+    saveDonors(donors);
+
+
+    showMessage(
+        "Donor registered successfully ❤️",
+        "green"
+    );
+
+
+    document.getElementById("registerForm").reset();
+
+    setTimeout(()=>{
+        showPage("login");
+    },1000);
+
+});
+
+
+// Login
+
+function loginDonor(){
+
+    let mobile=document.getElementById("loginMobile").value;
+
+    let donors=getDonors();
+
+    let donor=donors.find(
+        d=>d.mobile===mobile
+    );
+
+
+    if(!donor){
+
+        showMessage(
+            "Donor not found. Please register first.",
+            "red"
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "loggedDonor",
+        JSON.stringify(donor)
+    );
+
+
+    loadDashboard(donor);
+
+    showPage("dashboard");
+
+}
+
+
+// Dashboard
+
+function loadDashboard(donor){
+
+    document.getElementById("dashName")
+    .innerText=donor.name;
+
+    document.getElementById("dashMobile")
+    .innerText=donor.mobile;
+
+    document.getElementById("dashBlood")
+    .innerText=donor.blood;
+
+    document.getElementById("dashLocation")
+    .innerText=donor.location;
+
+}
+
+
+// Logout
+
+function logout(){
+
+    localStorage.removeItem("loggedDonor");
+
+    showPage("home");
+
+}
+
+
+// Search donors
+
+function searchDonors(){
+
+    let blood=
+        document.getElementById("searchBlood").value;
+
+    let location=
+        document.getElementById("searchLocation")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if(!blood || !location){
+
+        showMessage(
+            "Please select blood group and enter location.",
+            "red"
+        );
+
+        return;
+    }
+
+
+    let donors=getDonors();
+
+
+    let matches=donors.filter(donor=>
+
+        donor.blood===blood &&
+
+        donor.location
+        .toLowerCase()
+        .includes(location)
+
+    );
+
+
+    // If exact location matches are not available,
+    // show same blood group donors.
+
+    if(matches.length===0){
+
+        matches=donors.filter(
+            donor=>donor.blood===blood
+        );
+
+    }
+
+
+    let results=document.getElementById("results");
+
+
+    if(matches.length===0){
+
+        results.innerHTML=`
+
+        <div class="container">
+
+        <h2>No Donors Found</h2>
+
+        <p style="text-align:center">
+        No matching donors are currently available.
+        </p>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    results.innerHTML=`
+
+    <h2 style="color:#b30000;margin-bottom:15px">
+    Available ${blood} Donors
+    </h2>
+
+    `;
+
+
+    matches.forEach((donor,index)=>{
+
+        results.innerHTML+=`
+
+        <div class="donor-card">
+
+            <div class="donor-info">
+
+                <h3>🩸 ${donor.name}</h3>
+
+                <p>
+                <b>Blood Group:</b>
+                ${donor.blood}
+                </p>
+
+                <p>
+                <b>Location:</b>
+                📍 ${donor.location}
+                </p>
+
+                <p>
+                <b>Mobile:</b>
+                📱 ${donor.mobile}
+                </p>
+
+            </div>
+
+
+            <button
+            class="call-btn"
+            onclick="callDonor(
+                '${donor.name}',
+                '${donor.mobile}'
+            )">
+
+            📞 Call Donor
+
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+// Call donor
+
+function callDonor(name,mobile){
+
+    document.getElementById("callingName")
+    .innerText="Calling " + name;
+
+    document.getElementById("callingNumber")
+    .innerText=mobile;
+
+
+    document.getElementById("callModal")
+    .style.display="flex";
+
+
+    // Demo beep sound
+
+    playBeep();
+
+
+    // Open phone dialer after short delay
+
+    setTimeout(()=>{
+
+        window.location.href=
+            "tel:" + mobile;
+
+    },1500);
+
+}
+
+
+// Beep sound
+
+function playBeep(){
+
+    try{
+
+        let AudioContext=
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        let audio=
+            new AudioContext();
+
+        let oscillator=
+            audio.createOscillator();
+
+        let gain=
+            audio.createGain();
+
+
+        oscillator.connect(gain);
+
+        gain.connect(audio.destination);
+
+
+        oscillator.frequency.value=800;
+
+        oscillator.type="sine";
+
+
+        gain.gain.setValueAtTime(
+            0.15,
+            audio.currentTime
+        );
+
+
+        oscillator.start();
+
+
+        setTimeout(()=>{
+
+            oscillator.stop();
+
+        },300);
+
+    }
+
+    catch(error){
+
+        console.log(
+            "Audio not supported"
+        );
+
+    }
+
+}
+
+
+// End call
+
+function endCall(){
+
+    document.getElementById("callModal")
+    .style.display="none";
+
+}
+
+
+// Message
+
+function showMessage(text,color){
+
+    let message=
+        document.getElementById("message");
+
+    message.innerText=text;
+
+    message.style.color=
+        color==="green" ? "green" : "red";
+
+
+    setTimeout(()=>{
+
+        message.innerText="";
+
+    },3000);
+
+}
+
+
+// Load previous login
+
+window.onload=function(){
+
+    let loggedDonor=
+        localStorage.getItem("loggedDonor");
+
+
+    if(loggedDonor){
+
+        loadDashboard(
+            JSON.parse(loggedDonor)
+        );
+
+    }
+
+};
+
+</script>
+
+</body>
+</html>
